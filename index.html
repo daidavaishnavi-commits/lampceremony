@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Virtual Lamp Lighting Ceremony</title>
+
+<style>
+/* ===== BACKGROUND (PROJECTOR SAFE) ===== */
+body {
+  margin: 0;
+  height: 100vh;
+  background: radial-gradient(circle at center, #1a1a1a 0%, #000 70%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* ===== STAGE ===== */
+.stage {
+  position: relative;
+}
+
+/* ===== REAL LAMP IMAGE ===== */
+#lamp {
+  width: 420px;              /* adjust later for projector */
+  display: block;
+}
+
+/* ===== FLAMES ===== */
+.flame {
+  position: absolute;
+  width: 50px;
+  opacity: 0;
+  pointer-events: none;
+  mix-blend-mode:screen;
+}
+
+/* 🔧 ADJUST THESE POSITIONS TO MATCH YOUR LAMP WICKS */
+#f1 { top: 110px; left: 125px; }
+#f2 { top: 110px; left: 150px; }
+#f3 { top: 110px; left: 200px; }
+#f4 { top: 110px; left: 235px; }
+/* ===== FINAL COLLECTIVE GLOW ===== */
+#glow {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    rgba(255,200,100,0.45),
+    transparent 70%
+  );
+  opacity: 0;
+  pointer-events: none;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="stage" id="stage">
+  <div class="glow" id="glow"></div>
+
+  <img src="lamp.png" id="lamp" alt="Ceremony Lamp">
+
+  <img src="flame.png" class="flame" id="f1">
+  <img src="flame.png" class="flame" id="f2">
+  <img src="flame.png" class="flame" id="f3">
+ <img src="flame.png" class="flame" id="f4">
+</div>
+<script>
+  const flames = [
+    document.getElementById("f1"),
+    document.getElementById("f2"),
+    document.getElementById("f3"),
+    document.getElementById("f4")
+  ];
+
+  const glow = document.getElementById("glow");
+  let clickCount = 0;
+
+  document.body.addEventListener("click", () => {
+    if (clickCount < flames.length) {
+      flames[clickCount].style.opacity = 1;
+      clickCount++;
+    } else if (clickCount === flames.length) {
+      glow.style.opacity = 1;
+      clickCount++;
+    }
+  });
+</script>
+
+
+
+</body>
+</html>
